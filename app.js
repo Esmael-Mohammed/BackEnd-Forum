@@ -4,36 +4,42 @@ const cors=require('cors');
 
 const app=express();
 
-const port=5200;
-
-
+const port = process.env.PORT || 5200;
 app.use(cors())
-//db connection
-const dbConnection=require("./db/dbConfig.js")
-
-
-// user routers middleware file
-const userRoutes=require("./routes/userRoute.js")
- 
-// authentication middleWare
-const authMiddleware=require("./middleware/auth.js")
-
 
 // json middleware to extract json data
 app.use(express.json())
 
-// user routes middleware
-app.use('/api/users',userRoutes);
+
+//db connection
+const sequelize =require("./db/dbConfig.js")
 
 
-async function start(){
-    try {
-     const result=   await dbConnection.execute("select 'test' ")
-     await app.listen(port);
-     console.log("Database connection established")
-     console.log(`listing on ${port}`)
-    } catch (error) {
-        console.log(error.message)
-    }
+// user routers middleware file
+const userRoutes=require("./routes/userRoute")
+app.use('/api/users', userRoutes);
+
+// authentication middleWare
+const authMiddleware=require("./middleware/auth.js")
+
+const questionRoutes = require('./routes/questionRoute');
+app.use('/api/questions', questionRoutes);
+
+const answerRoutes = require('./routes/answerRoute');
+app.use('/api/answers', answerRoutes);
+
+
+async function start() {
+  try {
+    await sequelize.authenticate();
+    await sequelize.sync(); // creates tables if not exist
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
+    });
+  } catch (error) {
+    console.error('Unable to connect:', error.message);
+  }
 }
+
 start();
+
