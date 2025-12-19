@@ -16,11 +16,17 @@ const sequelize =require("./db/dbConfig.js")
 
 
 // user routers middleware file
-const userRoutes=require("./routes/userRoute.js")
+const userRoutes=require("./routes/userRoute")
 app.use('/api/users', userRoutes);
 
 // authentication middleWare
 const authMiddleware=require("./middleware/auth.js")
+
+const questionRoutes = require('./routes/questionRoute');
+app.use('/api/questions', questionRoutes);
+
+const answerRoutes = require('./routes/answerRoute');
+app.use('/api/answers', answerRoutes);
 
 
 async function start() {
