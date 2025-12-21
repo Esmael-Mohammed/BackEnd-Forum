@@ -8,6 +8,7 @@ const Question = sequelize.define('Question', {
   title: { type: DataTypes.STRING(255), allowNull: false },
   description: { type: DataTypes.STRING(500), allowNull: false },
   tag: { type: DataTypes.STRING(50) },
+  userId: {type:  DataTypes.INTEGER, allowNull: true, references: { model: User, key: 'userId' } }
 }, {
   tableName: 'questions',
   timestamps: false,
