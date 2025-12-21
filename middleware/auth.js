@@ -3,7 +3,7 @@ const jwt=require('jsonwebtoken')
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer')) {
-    return res.status(StatusCodes.UNAUTHORIZED).json({msg:"Authentication invalid!"});
+    return res.status(StatusCodes.UNAUTHORIZED).json({msg:"ጥዕMዥGBዕHዐL Gኝ ጥዖኽዕኝ ዓሳስተሃል Authentication invalid!"});
   }
   const token=authHeader.split(' ')[1];
   try {

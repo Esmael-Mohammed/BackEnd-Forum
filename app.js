@@ -4,7 +4,7 @@ const cors=require('cors');
 
 const app=express();
 
-const port = process.env.PORT || 5200;
+const port = process.env.PORT || 4000;
 app.use(cors())
 
 // json middleware to extract json data
